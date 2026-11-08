@@ -73,7 +73,39 @@ footer{text-align:center;padding:24px;color:var(--mut)}
  52%{transform:translate(66vw,22vh) scale(1) rotate(-14deg)}
  76%{transform:translate(82vw,10vh) scale(.9) rotate(10deg);opacity:1}
  100%{transform:translate(112vw,-12vh) scale(.7) rotate(-8deg);opacity:0}}
+.bswarm{width:70px;height:57px;animation:flyv var(--d) ease-in-out var(--dl) both;filter:drop-shadow(0 4px 8px rgba(11,31,107,.3)) hue-rotate(var(--hue))}
+.bswarm .w{animation-duration:var(--f)}
+@keyframes flyv{0%{transform:translate(var(--x0),var(--y0)) scale(.2) rotate(0);opacity:0}
+ 14%{opacity:1;transform:translate(var(--x0),var(--y0)) scale(var(--s)) rotate(-10deg)}
+ 40%{transform:translate(var(--x1),var(--y1)) scale(var(--s)) rotate(14deg)}
+ 70%{transform:translate(var(--x2),var(--y2)) scale(var(--s)) rotate(-14deg)}
+ 100%{transform:translate(var(--x3),var(--y3)) scale(calc(var(--s)*.7)) rotate(8deg);opacity:0}}
 @media(prefers-reduced-motion:reduce){.bfly{display:none}}
+#mbox.tech{background:radial-gradient(circle at 20% 0%,#0a2a63,#050d2b 70%);color:#e8f6ff;border:1px solid rgba(18,160,200,.7);box-shadow:0 0 0 1px rgba(20,153,79,.3),0 0 50px rgba(18,160,200,.5),inset 0 0 40px rgba(18,160,200,.12);animation:techIn .5s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes techIn{from{transform:scale(.85) rotateX(20deg);opacity:0}to{transform:none;opacity:1}}
+.techbox{position:relative;overflow:hidden;border-radius:18px}
+.techbox canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.38;pointer-events:none}
+.techin{position:relative;z-index:1;text-align:center}
+.tchip{display:inline-block;font:700 .78rem monospace;letter-spacing:2px;padding:3px 12px;border-radius:99px;border:1px solid #12a0c8;color:#7fe3ff;background:rgba(18,160,200,.12);direction:ltr}
+.tt{font-size:1.7rem;margin:10px 0 4px;color:#fff;text-shadow:0 0 12px #12a0c8,0 0 28px rgba(20,153,79,.7);animation:glitch 3.5s infinite}
+@keyframes glitch{0%,92%,100%{transform:none}93%{transform:translate(-2px,1px);text-shadow:2px 0 #ff3b6b,-2px 0 #12a0c8}95%{transform:translate(2px,-1px);text-shadow:-2px 0 #ff3b6b,2px 0 #12a0c8}97%{transform:none}}
+.term{font:600 .9rem/1.6 monospace;color:#7ff7b3;min-height:2.4em;text-align:left;padding:8px 12px;border-radius:12px;background:rgba(0,0,0,.4);border:1px solid rgba(127,247,179,.25);margin:8px 0 12px}
+.cur{display:inline-block;width:8px;height:1em;background:#7ff7b3;margin-inline-start:3px;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.tmembers{display:grid;gap:10px;margin:8px 0}
+.tm{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(18,160,200,.4);text-align:right;transition:.3s;backdrop-filter:blur(6px)}
+.tm:hover{transform:scale(1.03);border-color:#14994f;box-shadow:0 0 24px rgba(20,153,79,.45)}
+.tm small{display:block;color:#7fe3ff;font-family:monospace}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2dff8a;box-shadow:0 0 8px #2dff8a;animation:blink 1.4s infinite}
+.ring{position:relative;display:inline-block;border-radius:50%}
+.ring::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(#12a0c8,#14994f,#0b1f6b,#12a0c8);animation:spin 3s linear infinite;filter:blur(.5px)}
+.ring .avw{position:relative;z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gl{position:absolute;font:700 1.1rem monospace;color:rgba(127,227,255,.55);animation:glf 6s ease-in-out infinite;pointer-events:none;direction:ltr;z-index:1}
+.g1{top:8%;right:6%}.g2{top:30%;left:5%;animation-delay:-2s}.g3{bottom:30%;right:8%;animation-delay:-4s}.g4{bottom:12%;left:7%;animation-delay:-1s}
+@keyframes glf{50%{transform:translateY(-12px);opacity:.9}}
+.tnote{color:#9fc3dd;margin:12px 0 8px;font-size:.9rem}.tbtns{display:grid;gap:10px;margin-bottom:12px}
+.tclose{color:#e8f6ff;border-color:rgba(18,160,200,.5)}
 .avw{position:relative;display:inline-block;vertical-align:middle}
 .av{display:grid;place-items:center;border-radius:50%;overflow:hidden;background:var(--grad);color:#fff;font-weight:800;border:3px solid var(--gb);box-shadow:var(--sh)}
 .av img{width:100%;height:100%;object-fit:cover;display:block}
@@ -258,10 +290,37 @@ function evForm(id){if(!admin)return;const e=S.events.find(x=>x.id===id),v=e||{t
   save();closeM();toast("تم الحفظ");route()}}
 const IGL=(u)=>`<a class="btn" href="${u}" target="_blank" rel="noopener">${IG} إنستغرام</a>`;
 const CALL=(n,w)=>`<a class="btn" href="tel:+962${n}">📞 <span dir="ltr">0${n}</span></a><a class="btn" href="https://wa.me/962${n}" target="_blank" rel="noopener">💬 واتساب</a>`;
-function person(k){curM=()=>person(k);const P={
- elaf:{n:"إيلاف صمادي",r:"نائبة الرئيس",b:IGL("https://www.instagram.com/elafsmadi_.25?mdxt=aTJ3YnliMzhiYTg1")+CALL("775754073")},
- tech:{n:"قسم التقنية",r:"أعضاء القسم",b:`<div class="glass node" style="display:flex;align-items:center;gap:12px;justify-content:center">${avatar("ayman",64,true)}أيمن عامودي</div><div class="glass node" style="display:flex;align-items:center;gap:12px;justify-content:center">${avatar("khaled",64,true)}خالد العمري</div><p class="muted" style="margin:0">رقم التواصل والواتساب الخاص بالقسم</p>`+CALL("792934245")}}[k];
- $("#mbox").innerHTML=`<div style="text-align:center">${k==="elaf"?avatar("elaf",84,true)+`<div style="height:10px"></div>`:""}<h3>${P.n}</h3><p class="muted">${P.r}</p><div style="display:grid;gap:10px;margin:16px 0">${P.b}</div><button class="btn ghost sm" onclick="closeM()">إغلاق</button></div>`;$("#modal").classList.add("show")}
+function person(k,quiet){curM=()=>person(k,true);techStop();$("#mbox").classList.remove("tech");
+ if(k==="tech")return techModal(quiet);
+ const P={n:"إيلاف صمادي",r:"نائبة الرئيس",b:IGL("https://www.instagram.com/elafsmadi_.25?mdxt=aTJ3YnliMzhiYTg1")+CALL("775754073")};
+ $("#mbox").innerHTML=`<div style="text-align:center">${avatar("elaf",84,true)}<div style="height:10px"></div><h3>${P.n}</h3><p class="muted">${P.r}</p><div style="display:grid;gap:10px;margin:16px 0">${P.b}</div><button class="btn ghost sm" onclick="closeM()">إغلاق</button></div>`;
+ $("#modal").classList.add("show");if(!quiet)swarm(12)}
+function swarm(n){try{if(matchMedia("(prefers-reduced-motion:reduce)").matches)return}catch(e){}
+ const R=(a,b)=>a+Math.random()*(b-a);let mx=0;
+ for(let i=0;i<n;i++){const b=document.createElement("div"),d=R(4.2,6.8),dl=R(0,1.4),s=R(.5,1.1),out=Math.random()>.5?R(108,125):R(-30,-14);mx=Math.max(mx,d+dl);
+  b.className="bfly bswarm";b.setAttribute("aria-hidden","true");
+  const st={"--x0":R(42,58)+"vw","--y0":R(42,58)+"vh","--x1":R(5,90)+"vw","--y1":R(10,80)+"vh","--x2":R(5,90)+"vw","--y2":R(5,70)+"vh","--x3":out+"vw","--y3":R(-15,60)+"vh","--s":s,"--d":d+"s","--dl":dl+"s","--f":R(.14,.26)+"s","--hue":R(-30,30)+"deg"};
+  for(const k in st)b.style.setProperty(k,st[k]);
+  b.innerHTML=BF.replace(/bw(\d)/g,"bw$1_"+i);document.body.appendChild(b)}
+ setTimeout(()=>document.querySelectorAll(".bswarm").forEach(e=>e.remove()),(mx+.5)*1000)}
+let techOn=0;
+function techStop(){techOn++}
+function techModal(quiet){const box=$("#mbox");box.classList.add("tech");
+ box.innerHTML=`<div class="techbox"><canvas id="rain"></canvas><span class="gl g1">&lt;/&gt;</span><span class="gl g2">{ }</span><span class="gl g3">01</span><span class="gl g4">&lt;AI/&gt;</span>
+ <div class="techin"><div class="tchip">&lt;/&gt; TECH TEAM</div><h3 class="tt">قسم التقنية</h3>
+ <div class="term" dir="ltr"><span id="tty"></span><i class="cur"></i></div>
+ <div class="tmembers">${[["ayman","أيمن عامودي"],["khaled","خالد العمري"]].map(([k,n])=>`<div class="tm"><span class="ring">${avatar(k,64,true)}</span><div><b>${n}</b><small dir="ltr">tech.team · online <i class="dot"></i></small></div></div>`).join("")}</div>
+ <p class="tnote">رقم التواصل والواتساب الخاص بالقسم</p><div class="tbtns">${CALL("792934245")}</div><button class="btn ghost sm tclose" onclick="closeM()">إغلاق</button></div></div>`;
+ $("#modal").classList.add("show");techFx(quiet)}
+function techFx(quiet){const my=++techOn,live=()=>my===techOn&&$("#modal").classList.contains("show");
+ const msgs=["> initializing dopamine.tech …","> loading modules: web · data · design","> connection secured 🔒","> status: ready ✓"],el=$("#tty");let m=0,c=0;
+ const type=()=>{if(!live())return;const s=msgs[m%msgs.length];if(c<=s.length){el.textContent=s.slice(0,c++);setTimeout(type,quiet?0:38)}else setTimeout(()=>{c=0;m++;type()},1400)};type();
+ const cv=$("#rain");if(!cv)return;const x=cv.getContext("2d");let reduce=false;try{reduce=matchMedia("(prefers-reduced-motion:reduce)").matches}catch(e){}
+ const W=cv.width=cv.offsetWidth||360,Hh=cv.height=cv.offsetHeight||420,fs=14,cols=Math.floor(W/fs),dr=Array.from({length:cols},()=>Math.random()*-30),ch="01{}<>/;=+*#$%";
+ const step=()=>{if(!live())return;x.fillStyle="rgba(5,13,43,.16)";x.fillRect(0,0,W,Hh);x.font=fs+"px monospace";
+  for(let i=0;i<cols;i++){x.fillStyle=Math.random()>.92?"#fff":(i%3?"#12a0c8":"#14994f");x.fillText(ch[Math.floor(Math.random()*ch.length)],i*fs,dr[i]*fs);if(dr[i]*fs>Hh&&Math.random()>.975)dr[i]=0;dr[i]++}
+  if(!reduce)setTimeout(()=>requestAnimationFrame(step),45)};
+ step()}
 function word(){$("#mbox").innerHTML=`<h3>كلمة رئيسة الفريق</h3>${[
 "أؤمن أن كل فكرة عظيمة تبدأ بحلم صغير وأن لكل شخص طاقة وقدرة يمكن أن تصنع فرقًا إذا وجدت الفرصة والمساحة المناسبة ومن هذا الإيمان بدأت حكاية دوبامين.",
 "أنا لجين فراس عبيدات طالبة في كلية الصيدلة في جامعة جدارا ومؤسسة ورئيسة فريق دوبامين الطلابي، وكانت لدي رغبة في تأسيس مساحة تجمع الشباب الطموح وتمنحهم فرصة للتعبير عن أفكارهم واكتشاف قدراتهم والمشاركة في تجارب تصنع منهم أشخاصًا أكثر ثقة وخبرة وعطاءً.",
@@ -284,47 +343,11 @@ function avSrc(k){const v=S.site&&S.site.av&&S.site.av[k]||(DEF[k]||"");return v
 function avatar(k,size,edit){const s=avSrc(k);return `<span class="avw"><span class="av" style="width:${size}px;height:${size}px;font-size:${Math.round(size/2.6)}px">${s?`<img src="${s}" alt="">`:AVK[k]}</span>${edit&&admin?`<label class="avedit" title="تغيير الصورة" onclick="event.stopPropagation()"><input type="file" accept="image/png,image/jpeg,image/webp" hidden onclick="event.stopPropagation()" onchange="pickAv('${k}',this)">📷</label>`:""}</span>`}
 async function pickAv(k,inp){if(!admin)return;const f=inp.files[0];inp.value="";if(!f)return;let img;try{img=await shrink(f,320)}catch(e){return toast("تعذر قراءة الصورة (png/jpg/webp فقط)")}
  await (S.site.av=S.site.av||{},S.site.av[k]=img,save()?(toast("تم تحديث الصورة"),route()):0);if(curM)curM()}
-function closeM(){curM=null;$("#modal").classList.remove("show")}
+function closeM(){curM=null;techStop();$("#mbox").classList.remove("tech");$("#modal").classList.remove("show")}
 $("#modal").onclick=e=>{if(e.target.id==="modal")closeM()};
 function delEv(id){if(!admin||!confirm("حذف هذه الورشة وكل طلباتها؟"))return;S.events=S.events.filter(e=>e.id!==id);S.apps=S.apps.filter(a=>a.ev!==id);save();route()}
 $("#th").onclick=()=>{const d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("dp-theme",n)}catch(e){}};
 addEventListener("hashchange",()=>{const g=(location.hash||"").slice(1);if(g&&g!==cur){cur=V[g]?g:"home";route();}});route();
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js"; // <-- حط هذا السطر هون
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAf9cc0ry4Te7GzVler79CvXoMe5K",
-  authDomain: "dopamine-app-7a5eb.firebaseapp.com",
-  projectId: "dopamine-app-7a5eb",
-  storageBucket: "dopamine-app-7a5eb.firebasestorage.app",
-  messagingSenderId: "477830429781",
-  appId: "1:477830429781:web:b8cd42272f8b0fe4316dca",
-  measurementId: "G-T43WVMS111"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app); // <-- وحط هذا السطر تحت تهيئة analytics مباشرة
-
-// وحط دالة حفظ البيانات هون تحتهم
-window.saveUserData = async function(userName, userEmail) {
-  try {
-    const docRef = await addDoc(collection(db, "registrations"), {
-      name: userName,
-      email: userEmail,
-      timestamp: new Date()
-    });
-    console.log("Document written with ID: ", docRef.id);
-    alert("تم التسجيل بنجاح!");
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-};
-</script>
 </script>
 </body>
 </html>
