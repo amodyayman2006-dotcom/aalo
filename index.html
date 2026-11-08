@@ -289,6 +289,42 @@ $("#modal").onclick=e=>{if(e.target.id==="modal")closeM()};
 function delEv(id){if(!admin||!confirm("حذف هذه الورشة وكل طلباتها؟"))return;S.events=S.events.filter(e=>e.id!==id);S.apps=S.apps.filter(a=>a.ev!==id);save();route()}
 $("#th").onclick=()=>{const d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("dp-theme",n)}catch(e){}};
 addEventListener("hashchange",()=>{const g=(location.hash||"").slice(1);if(g&&g!==cur){cur=V[g]?g:"home";route();}});route();
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js"; // <-- حط هذا السطر هون
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAf9cc0ry4Te7GzVler79CvXoMe5K",
+  authDomain: "dopamine-app-7a5eb.firebaseapp.com",
+  projectId: "dopamine-app-7a5eb",
+  storageBucket: "dopamine-app-7a5eb.firebasestorage.app",
+  messagingSenderId: "477830429781",
+  appId: "1:477830429781:web:b8cd42272f8b0fe4316dca",
+  measurementId: "G-T43WVMS111"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app); // <-- وحط هذا السطر تحت تهيئة analytics مباشرة
+
+// وحط دالة حفظ البيانات هون تحتهم
+window.saveUserData = async function(userName, userEmail) {
+  try {
+    const docRef = await addDoc(collection(db, "registrations"), {
+      name: userName,
+      email: userEmail,
+      timestamp: new Date()
+    });
+    console.log("Document written with ID: ", docRef.id);
+    alert("تم التسجيل بنجاح!");
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+</script>
 </script>
 </body>
 </html>
